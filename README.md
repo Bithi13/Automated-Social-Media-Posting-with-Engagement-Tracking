@@ -1,1 +1,25 @@
 # Automated-Social-Media-Posting-with-Engagement-Tracking
+import tweepy
+import schedule
+import time
+
+# Set up Twitter API credentials
+consumer_key = 'your_consumer_key'
+consumer_secret = 'your_consumer_secret'
+access_token = 'your_access_token'
+access_token_secret = 'your_access_token_secret'
+
+auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
+api = tweepy.API(auth)
+
+def post_tweet():
+    tweet = "Hello, this is an automated tweet. #Python #Automation"
+    api.update_status(tweet)
+    print("Tweet posted successfully!")
+
+# Schedule the tweet to post every day at 10 AM
+schedule.every().day.at("10:00").do(post_tweet)
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)  # Wait one minute before checking the schedule again
